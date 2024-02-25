@@ -1,0 +1,8 @@
+import os
+
+DATABASE_USERNAME = os.getenv('DATABASE_USERNAME', 'flight_user')
+DATABASE_PASSWORD = os.getenv('DATABASE_PASSWORD', 'Password1!')
+DATABASE_HOST = os.getenv('DATABASE_HOST', 'postgresql')
+DATABASE_NAME = os.getenv('DATABASE_NAME', 'flight_db')
+
+DATABASE_URL = f"postgresql://{DATABASE_USERNAME}:{DATABASE_PASSWORD}@{DATABASE_HOST}:5432/{DATABASE_NAME}"
