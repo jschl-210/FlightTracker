@@ -8,7 +8,7 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
 from flightapi.db_config import DATABASE_URL
-from flightapi.models import Airports, Flights, Users, Passengers
+from flightapi.models import Airports, Flights, Passengers
 
 if __name__ == "__main__":
     engine = create_engine(

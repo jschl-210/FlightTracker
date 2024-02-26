@@ -4,6 +4,16 @@ from pydantic import BaseModel, Json
 
 
 class PassengersBase(BaseModel):
+    """
+    Base model for passengers.
+
+    Args:
+        flight_id (int): Flight ID.
+        first_name (str): First name.
+        last_name (str): Last name.
+        date_of_birth (str): Date of birth.
+        passport_number (str): Passport number.
+    """
     flight_id: int
     first_name: str
     last_name: str

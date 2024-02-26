@@ -8,6 +8,16 @@ from .models import Flights, Airports, Passengers, Airlines
 
 
 def create_airports(db: Session, airport: airports.AirportsCreate):
+    """
+    Create a new airport in the database
+
+    Args:
+        db (Session): The database session
+        airport (airports.AirportsCreate): The airport to create
+
+    Returns:
+        airports.Airports: The created airport
+    """
     db_airports = Airports(**airport.model_dump())
     db.add(db_airports)
     db.commit()
@@ -25,6 +35,19 @@ def get_airports(db: Session,
                  city: [str] = None,
                  country: [str] = None,
                  limit: int = 100):
+    """
+        Get a list of airports based on the provided filters.
+
+        Args:
+            db (Session): The database session
+            airport_id (list, optional): A list of airport IDs. Defaults to None.
+            city (list, optional): A list of cities. Defaults to None.
+            country (list, optional): A list of countries. Defaults to None.
+            limit (int, optional): The maximum number of results to return. Defaults to 100.
+
+        Returns:
+            list: A list of airports that match the provided filters.
+        """
     return db.query(Airports) \
         .filter_if(airport_id is not None,
                    Airports.id.in_(airport_id if airport_id is not None else [])) \
@@ -34,6 +57,16 @@ def get_airports(db: Session,
 
 
 def create_airlines(db: Session, airline: airlines.AirlinesCreate):
+    """
+    Create a new airline in the database
+
+    Args:
+        db (Session): The database session
+        airline (airlines.AirlinesCreate): The airline to create
+
+    Returns:
+        airlines.Airlines: The created airline
+    """
     db_airlines = Airports(**airline.model_dump())
     db.add(db_airlines)
     db.commit()
@@ -65,6 +98,24 @@ def get_flights(db: Session,
                 departure_date: [str] = None,
                 arrival_date: [str] = None,
                 limit: int = 100):
+    """
+        Get a list of flights based on the provided filters.
+
+        Args:
+            db (Session): The database session
+            departure_airport (list, optional): A list of departure airport IATA codes.
+                Defaults to None.
+            arrival_airport (list, optional): A list of arrival airport IATA codes.
+                Defaults to None.
+            departure_date (list, optional): A list of departure dates in YYYY-MM-DD format.
+                Defaults to None.
+            arrival_date (list, optional): A list of arrival dates in YYYY-MM-DD format.
+                Defaults to None.
+            limit (int, optional): The maximum number of results to return. Defaults to 100.
+
+        Returns:
+            list: A list of flights that match the provided filters.
+        """
     return db.query(Flights) \
         .filter_if(departure_airport is not None,
                    Flights.id.in_(departure_airport if departure_airport is not None else [])) \

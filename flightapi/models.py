@@ -6,6 +6,21 @@ Base = declarative_base()
 
 
 class Airports(Base):
+    """
+    The Airports class represents airports in the system.
+
+    Attributes:
+        id (int): The primary key of the airport.
+        code (str): The IATA code of the airport.
+        name (str): The name of the airport.
+        city (str): The city the airport is located in.
+        country (str): The country the airport is located in.
+        latitude (float): The latitude of the airport.
+        longitude (float): The longitude of the airport.
+        geom (shapely.geometry.Point): The location of the airport as a shapely point.
+        departing_flights (list): A list of flights that depart from this airport.
+        arriving_flights (list): A list of flights that arrive at this airport.
+    """
     __tablename__ = "airports"
 
     id = Column(Integer, primary_key=True, index=True)
@@ -26,6 +41,14 @@ class Airports(Base):
 
 
 class Airlines(Base):
+    """
+    The Airlines class represents airlines in the system.
+
+    Attributes:
+        id (int): The primary key of the airline.
+        code (str): The IATA code of the airline.
+        name (str): The name of the airline.
+    """
     __tablename__ = "airlines"
     id = Column(Integer, primary_key=True)
     code = Column(String, unique=True, nullable=False)
@@ -33,6 +56,25 @@ class Airlines(Base):
 
 
 class Flights(Base):
+    """
+      The Flights class represents flights in the system.
+
+      Attributes:
+          id (int): The primary key of the flight.
+          flight_status (str): The status of the flight.
+          flight_number (str): The flight number of the flight.
+          available_seats (str): The available seats of the flight.
+          departure_airport_id (int): The ID of the departure airport.
+          arrival_airport_id (int): The ID of the arrival airport.
+          departure_date (str): The departure date of the flight.
+          arrival_date (str): The arrival date of the flight.
+          duration (int): The duration of the flight in minutes.
+          fare (float): The fare of the flight.
+
+      Methods:
+          get_departure_airport(): Returns the departure airport of the flight.
+          get_arrival_airport(): Returns the arrival airport of the flight.
+      """
     __tablename__ = "flights"
 
     id = Column(Integer, primary_key=True, index=True)
@@ -54,16 +96,21 @@ class Flights(Base):
     # )
 
 
-class Users(Base):
-    __tablename__ = "users"
-
-    id = Column(Integer, primary_key=True, index=True)
-    username = Column(VARCHAR(255), unique=True, index=True)
-    email = Column(VARCHAR(255), unique=True, index=True)
-    password = Column(VARCHAR(255))
-
-
 class Passengers(Base):
+    """
+    The Passengers class represents passengers in the system.
+
+    Attributes:
+        id (int): The primary key of the passenger.
+        flight_id (int): The ID of the flight the passenger is on.
+        first_name (str): The first name of the passenger.
+        last_name (str): The last name of the passenger.
+        date_of_birth (str): The date of birth of the passenger.
+        passport_number (str): The passport number of the passenger.
+
+    Methods:
+        get_flight(): Returns the flight the passenger is on.
+    """
     __tablename__ = "passengers"
 
     id = Column(Integer, primary_key=True, index=True)

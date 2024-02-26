@@ -254,6 +254,20 @@ def get_passengers(
         limit: int = 100,
         db: Session = Depends(get_db),
 ):
+    """
+        Get a list of passengers based on the provided filters.
+
+        Args:
+            passenger_id (Optional[List[int]]): A list of passenger IDs to filter by.
+            first_name (Optional[List[str]]): A list of first names to filter by.
+            last_name (Optional[List[str]]): A list of last names to filter by.
+            passport_number (Optional[List[str]]): A list of passport numbers to filter by.
+            limit (int, optional): The maximum number of results to return. Defaults to 100.
+            db (Session): The database session to use.
+
+        Returns:
+            List[passengers.Passengers]: A list of passenger objects that match the provided filters.
+        """
     passenger_result = crud.get_passengers(
         db,
         passenger_id=passenger_id,
@@ -273,6 +287,20 @@ def get_passengers(
     tags=["Passengers"],
 )
 def update_passenger(passenger_id: int, passenger_update: passengers.PassengersUpdate, db: Session = Depends(get_db)):
+    """
+    Update a passenger.
+
+    Args:
+        passenger_id (int): The ID of the passenger to update.
+        passenger_update (PassengersUpdate): The updated passenger information.
+        db (Session): The database session to use.
+
+    Returns:
+        Passengers: The updated passenger information.
+
+    Raises:
+        HTTPException: If the passenger does not exist.
+    """
     # Check if the passenger exists
     existing_passenger = crud.get_passengers(db, passenger_id=passenger_id)
     if not existing_passenger:
